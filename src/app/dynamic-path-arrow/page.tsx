@@ -20,26 +20,24 @@ const Component: React.FC = () => {
   // Handle responsive layout detection
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth >= 640 && window.innerWidth <= 768) {
-        setIsMobile(false);
-        setIsTablet(true);
-      } else if (window.innerWidth < 640) {
-        setIsMobile(true);
-        setIsTablet(false);
-      } else {
-        setIsMobile(false);
-        setIsTablet(false);
+      if (typeof window !== "undefined") {
+        if (window.innerWidth >= 640 && window.innerWidth <= 768) {
+          setIsMobile(false);
+          setIsTablet(true);
+        } else if (window.innerWidth < 640) {
+          setIsMobile(true);
+          setIsTablet(false);
+        } else {
+          setIsMobile(false);
+          setIsTablet(false);
+        }
       }
     };
 
-    handleResize();
+    handleResize(); // Initial call
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-
-  console.log("window.innerWidth:", window.innerWidth);
-  console.log("isMobile:", isMobile);
-  console.log("isTablet:", isTablet);
 
   return (
     <div className="min-h-screen mx-auto max-w-7xl py-16">
